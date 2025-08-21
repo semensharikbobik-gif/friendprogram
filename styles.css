@@ -1,0 +1,67 @@
+:root{
+  --bg:#f6f7fb; --card:#ffffff; --text:#0f172a; --muted:#667085;
+  --ring:#e6e8f0; --shadow:0 12px 30px rgba(16,24,40,.06);
+  --accent:#3b82f6; --accent-weak:#e8f0fe; --danger:#ef4444;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font:16px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial;
+  color:var(--text); background:
+    radial-gradient(1000px 600px at 80% -20%, #eaf2ff 0, transparent 60%),
+    radial-gradient(1200px 700px at -10% 30%, #eaf7ff 0, transparent 55%),
+    var(--bg);
+}
+
+.app-header{padding:28px 16px 0; text-align:center}
+h1{margin:0; font-size:28px}
+h2{margin:0 0 12px; font-size:20px}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+
+.container{max-width:880px; margin:24px auto; padding:0 16px}
+
+.card{
+  background:var(--card); border:1px solid var(--ring); border-radius:18px;
+  padding:16px 16px 20px; box-shadow:var(--shadow); margin-bottom:16px;
+}
+
+.row{display:flex; gap:10px; flex-wrap:wrap}
+
+.input{
+  flex:1 1 220px; min-width:220px; padding:12px 12px; border-radius:12px;
+  border:1px solid var(--ring); background:#fff; color:var(--text); outline:none;
+}
+.input:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(59,130,246,.2)}
+
+.btn{
+  padding:12px 14px; border-radius:12px; border:1px solid var(--ring);
+  background:#fff; color:var(--text); cursor:pointer; transition:.15s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--accent); color:#fff; border-color:transparent; font-weight:600}
+.btn.ghost{background:var(--accent-weak); color:#174EA6; border-color:#d6e4ff}
+
+.list-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+
+.list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px}
+.empty{padding:8px 0; color:var(--muted)}
+
+.item{
+  display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center;
+  border:1px solid var(--ring); border-radius:16px; padding:12px; background:#fff;
+}
+.item h3{margin:0; font-size:18px}
+.sub{font-size:13px; color:var(--muted)}
+.meta{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+.badge{
+  display:inline-flex; gap:6px; align-items:center;
+  padding:6px 10px; background:#f0f7ff; color:#174EA6; border:1px solid #d8e6ff; border-radius:999px;
+}
+.badge strong{font-weight:700}
+.actions{display:flex; gap:8px}
+.edit-panel{display:flex; gap:8px; align-items:center}
+.hidden{display:none}
+
+.footer{max-width:880px; margin:12px auto 24px; padding:0 16px; text-align:center}

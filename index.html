@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Друзья — таймер встреч</title>
+  <meta name="description" content="Сколько прошло времени с последней встречи с друзьями" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <!-- Иконку можно добавить позже: -->
+  <!-- <link rel="apple-touch-icon" href="icons/icon-180.png"> -->
+
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>Друзья — таймер встреч</h1>
+    <p class="muted">Счётчик времени с момента последней встречи</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Добавить друга</h2>
+      <form id="addForm" class="row">
+        <input id="nameInput" class="input" type="text" placeholder="Имя" required />
+        <input id="dateInput" class="input" type="datetime-local" />
+        <button type="button" id="seenNowBtn" class="btn ghost">Виделись сейчас</button>
+        <button type="submit" class="btn primary">Сохранить</button>
+      </form>
+      <p class="muted small">Можно не указывать дату — нажми «Виделись сейчас».</p>
+    </section>
+
+    <section class="card">
+      <div class="list-header">
+        <h2>Список друзей</h2>
+        <div class="actions">
+          <button id="exportBtn" class="btn">Экспорт</button>
+          <label class="btn">
+            Импорт <input id="importInput" type="file" accept="application/json" hidden />
+          </label>
+        </div>
+      </div>
+      <div id="emptyState" class="empty">Пока пусто. Добавь первого друга выше 👆</div>
+      <ul id="list" class="list" aria-live="polite"></ul>
+    </section>
+  </main>
+
+  <footer class="footer muted small">
+    Данные хранятся локально в браузере. Для офлайна на iPhone опубликуй по HTTPS (см. шаги ниже).
+  </footer>
+
+  <script>
+    // Регистрация сервис-воркера (работает на HTTPS/localhost)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(console.error);
+      });
+    }
+  </script>
+  <script src="./app.js" defer></script>
+</body>
+</html>
