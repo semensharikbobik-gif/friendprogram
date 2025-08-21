@@ -2,21 +2,18 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <!-- ЗАМЕНИ эту строку viewport на такую -->
- <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
-
-
+  <!-- важно для iPhone с «чёлкой» -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
   <title>Друзья — таймер встреч</title>
   <meta name="description" content="Сколько прошло времени с последней встречи с друзьями" />
 
   <!-- PWA -->
   <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#3b82f6" />
+  <meta name="theme-color" content="#2563eb" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <!-- Иконку можно добавить позже: -->
+  <!-- (опционально) собственная иконка ярлыка -->
   <!-- <link rel="apple-touch-icon" href="icons/icon-180.png"> -->
 
   <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
@@ -56,14 +53,15 @@
   </main>
 
   <footer class="footer muted small">
-    Данные хранятся локально в браузере. Для офлайна на iPhone опубликуй по HTTPS (см. шаги ниже).
+    Данные хранятся локально в браузере. Поставь на экран «Домой» через Safari → Поделиться.
   </footer>
 
+  <!-- Регистрация сервис-воркера с версией, чтобы обновления подтягивались надёжно -->
   <script>
-    // Регистрация сервис-воркера (работает на HTTPS/localhost)
     if ('serviceWorker' in navigator) {
+      const APP_VERSION = '4'; // меняй цифру при следующих релизах
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(console.error);
+        navigator.serviceWorker.register(`./sw.js?v=${APP_VERSION}`).catch(console.error);
       });
     }
   </script>

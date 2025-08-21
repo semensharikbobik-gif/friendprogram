@@ -45,14 +45,13 @@ function formatDuration(ms) {
   return `${mins} ${plural(mins, "минута", "минуты", "минут")}`;
 }
 
-// Преобразование ISO -> строка для <input type="datetime-local">
+// ISO <-> input type=datetime-local
 function toLocalInputValue(iso) {
   const d = new Date(iso);
   const tz = d.getTimezoneOffset();
   const local = new Date(d.getTime() - tz * 60000);
   return local.toISOString().slice(0, 16); // YYYY-MM-DDTHH:mm
 }
-// Преобразование значения из <input datetime-local> в ISO (UTC)
 function fromLocalInputValue(val) {
   const d = new Date(val); // трактуется как local time
   return d.toISOString();
@@ -61,7 +60,7 @@ function fromLocalInputValue(val) {
 // --- Состояние --------------------------------------------------------------
 let friends = loadFriends(); // [{id, name, metAtISO}]
 
-// --- DOM --------------------------------------------------------------
+// --- DOM --------------------------------------------------------------------
 const listEl = document.getElementById("list");
 const emptyEl = document.getElementById("emptyState");
 const addForm = document.getElementById("addForm");
@@ -71,7 +70,7 @@ const seenNowBtn = document.getElementById("seenNowBtn");
 const exportBtn = document.getElementById("exportBtn");
 const importInput = document.getElementById("importInput");
 
-// --- Рендер --------------------------------------------------------------
+// --- Рендер -----------------------------------------------------------------
 function render() {
   if (!friends.length) {
     emptyEl.classList.remove("hidden");
@@ -80,7 +79,7 @@ function render() {
   }
   emptyEl.classList.add("hidden");
 
-  // Сортировка: у кого встреча была давно, тот выше
+  // У кого встреча была давно — выше
   friends.sort((a, b) => new Date(a.metAtISO) - new Date(b.metAtISO));
 
   const now = Date.now();
@@ -121,6 +120,7 @@ function render() {
   }).join("");
 }
 
+// Обновление только «прошло: …»
 function tickElapsed() {
   const now = Date.now();
   document.querySelectorAll("#list .item").forEach(item => {
@@ -134,7 +134,7 @@ function tickElapsed() {
   });
 }
 
-// --- Верхняя форма ----------------------------------------------------------
+// Верхняя форма
 seenNowBtn.addEventListener("click", () => {
   dateInput.value = toLocalInputValue(new Date().toISOString());
 });
@@ -155,7 +155,7 @@ addForm.addEventListener("submit", (e) => {
   render();
 });
 
-// --- Список: делегирование --------------------------------------------------
+// Делегирование по списку
 listEl.addEventListener("click", (e) => {
   const btn = e.target.closest("button");
   if (!btn) return;
@@ -205,7 +205,7 @@ listEl.addEventListener("click", (e) => {
   }
 });
 
-// --- Экспорт / Импорт -------------------------------------------------------
+// Экспорт / Импорт
 exportBtn.addEventListener("click", () => {
   const blob = new Blob([JSON.stringify(friends, null, 2)], { type: "application/json" });
   const url = URL.createObjectURL(blob);
@@ -237,14 +237,14 @@ importInput.addEventListener("change", async (e) => {
   }
 });
 
-// --- Безопасный текст -------------------------------------------------------
+// Безопасный текст
 function escapeHtml(s) {
   return s.replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[c]));
 }
 
-// --- Инициализация ----------------------------------------------------------
+// Инициализация
 render();
 const interval = setInterval(tickElapsed, 60_000);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) render(); });
