@@ -1,4 +1,4 @@
-const CACHE = "friendtimer-v1";
+const CACHE = "friendtimer-v3";
 const ASSETS = [
   "./",
   "./index.html",

@@ -114,7 +114,7 @@ function render() {
         <div class="actions">
           <button class="btn ghost seen-now">Виделись сейчас</button>
           <button class="btn edit-date">Изменить дату</button>
-          <button class="btn" style="border-color:#f0d5d5; color:#b42318; background:#fff5f5" data-role="delete">Удалить</button>
+          <button class="btn danger delete">Удалить</button>
         </div>
       </li>
     `;
@@ -195,7 +195,7 @@ listEl.addEventListener("click", (e) => {
     return;
   }
 
-  if (btn.dataset.role === "delete") {
+  if (btn.classList.contains("delete")) {
     if (confirm("Удалить друга из списка?")) {
       friends.splice(idx, 1);
       saveFriends(friends);

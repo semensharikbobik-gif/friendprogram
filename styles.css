@@ -1,67 +1,99 @@
 :root{
-  --bg:#f6f7fb; --card:#ffffff; --text:#0f172a; --muted:#667085;
-  --ring:#e6e8f0; --shadow:0 12px 30px rgba(16,24,40,.06);
-  --accent:#3b82f6; --accent-weak:#e8f0fe; --danger:#ef4444;
+  --bg:#ffffff; --bg-soft:#f7f9fc;
+  --text:#0f172a; --muted:#64748b;
+  --ring:#e2e8f0; --shadow:0 10px 24px rgba(2,6,23,.06);
+  --accent:#2563eb; --accent-weak:#eff6ff;
+  --danger:#ef4444; --danger-weak:#fee2e2; --danger-ring:#fecaca;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%}
+*{ box-sizing:border-box; min-width:0 }
+html,body{ height:100% }
+
 body{
-  margin:0; font:16px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial;
-  color:var(--text); background:
-    radial-gradient(1000px 600px at 80% -20%, #eaf2ff 0, transparent 60%),
-    radial-gradient(1200px 700px at -10% 30%, #eaf7ff 0, transparent 55%),
+  margin:0;
+  font: 17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial;
+  color:var(--text);
+  background:
+    radial-gradient(900px 500px at 80% -10%, #eef4ff 0, transparent 60%),
+    radial-gradient(1000px 600px at -10% 30%, #f0f7ff 0, transparent 55%),
     var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.app-header{padding:28px 16px 0; text-align:center}
-h1{margin:0; font-size:28px}
-h2{margin:0 0 12px; font-size:20px}
-.muted{color:var(--muted)}
-.small{font-size:12px}
+.app-header{
+  position: sticky; top: 0; z-index: 10;
+  padding: calc(10px + env(safe-area-inset-top)) 16px 8px;
+  text-align:center;
+  background: linear-gradient(180deg, #eef4ff 0%, #ffffff 85%);
+  border-bottom: 1px solid var(--ring);
+}
+h1{ margin:0 0 6px; font-size:26px }
+h2{ margin:0 0 12px; font-size:20px }
+.muted{ color:var(--muted) }
+.small{ font-size:12px }
 
-.container{max-width:880px; margin:24px auto; padding:0 16px}
+.container{ max-width: 720px; margin: 12px auto; padding: 0 14px }
 
 .card{
-  background:var(--card); border:1px solid var(--ring); border-radius:18px;
-  padding:16px 16px 20px; box-shadow:var(--shadow); margin-bottom:16px;
+  background:#fff; border:1px solid var(--ring); border-radius:16px;
+  padding:14px; box-shadow:var(--shadow); margin-bottom:12px; overflow:hidden;
 }
 
-.row{display:flex; gap:10px; flex-wrap:wrap}
-
+/* Формы */
+.row{ display:flex; gap:8px; flex-wrap:wrap }
 .input{
-  flex:1 1 220px; min-width:220px; padding:12px 12px; border-radius:12px;
+  flex:1 1 220px; min-width: 0;
+  padding:11px 12px; border-radius:12px;
   border:1px solid var(--ring); background:#fff; color:var(--text); outline:none;
 }
-.input:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(59,130,246,.2)}
+.input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(37,99,235,.18) }
 
+/* Кнопки */
 .btn{
-  padding:12px 14px; border-radius:12px; border:1px solid var(--ring);
+  padding:11px 14px; border-radius:12px; border:1px solid var(--ring);
   background:#fff; color:var(--text); cursor:pointer; transition:.15s ease;
+  white-space:nowrap;
 }
-.btn:hover{transform:translateY(-1px)}
-.btn.primary{background:var(--accent); color:#fff; border-color:transparent; font-weight:600}
-.btn.ghost{background:var(--accent-weak); color:#174EA6; border-color:#d6e4ff}
+.btn:hover{ transform: translateY(-1px) }
+.btn.primary{ background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600 }
+.btn.ghost{ background:var(--accent-weak); color:#1e40af; border-color:#dbeafe }
+.btn.danger{ background:var(--danger-weak); color:#991b1b; border-color:var(--danger-ring) }
 
-.list-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+/* Список */
+.list-header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px }
+.list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px }
+.empty{ padding:8px 0; color:var(--muted) }
 
-.list{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px}
-.empty{padding:8px 0; color:var(--muted)}
-
+/* Карточка друга */
 .item{
-  display:grid; grid-template-columns:1fr auto; gap:12px; align-items:center;
-  border:1px solid var(--ring); border-radius:16px; padding:12px; background:#fff;
+  display:grid; grid-template-columns: 1fr auto; align-items:center;
+  gap:10px; border:1px solid var(--ring); border-radius:14px; padding:12px;
+  background:#fff; overflow:hidden;
 }
-.item h3{margin:0; font-size:18px}
-.sub{font-size:13px; color:var(--muted)}
-.meta{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
-.badge{
-  display:inline-flex; gap:6px; align-items:center;
-  padding:6px 10px; background:#f0f7ff; color:#174EA6; border:1px solid #d8e6ff; border-radius:999px;
-}
-.badge strong{font-weight:700}
-.actions{display:flex; gap:8px}
-.edit-panel{display:flex; gap:8px; align-items:center}
-.hidden{display:none}
+.item h3{ margin:0 0 6px; font-size:18px }
+.sub{ font-size:13px; color:var(--muted) }
+.meta{ display:flex; gap:10px; align-items:center; flex-wrap:wrap }
 
-.footer{max-width:880px; margin:12px auto 24px; padding:0 16px; text-align:center}
+.badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 10px; border-radius:999px; background:var(--accent-weak);
+  color:#1e40af; border:1px solid #dbeafe; font-weight:600;
+}
+
+.actions{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end }
+
+/* На узких экранах кнопки уходят вниз — ничего не вылазит за края */
+@media (max-width: 420px){
+  .item{ grid-template-columns: 1fr; }
+  .actions{ justify-content:flex-start }
+}
+
+.edit-panel{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:8px }
+.hidden{ display:none }
+
+.footer{
+  max-width:720px; margin: 8px auto 24px; padding: 0 14px;
+  text-align:center; color:var(--muted);
+  padding-bottom: calc(env(safe-area-inset-bottom) + 12px);
+}
